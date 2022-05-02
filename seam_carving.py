@@ -69,26 +69,26 @@ def calc_energy(im):
 
 
 def calc_energy(img):
-    filter_du = np.array([
+    sobel_x = np.array([
         [1.0, 2.0, 1.0],
         [0.0, 0.0, 0.0],
         [-1.0, -2.0, -1.0],
     ])
     # This converts it from a 2D filter to a 3D filter, replicating the same
     # filter for each channel: R, G, B
-    filter_du = np.stack([filter_du] * 3, axis=2)
+    sobel_x = np.stack([sobel_x] * 3, axis=2)
 
-    filter_dv = np.array([
+    sobel_y = np.array([
         [1.0, 0.0, -1.0],
         [2.0, 0.0, -2.0],
         [1.0, 0.0, -1.0],
     ])
     # This converts it from a 2D filter to a 3D filter, replicating the same
     # filter for each channel: R, G, B
-    filter_dv = np.stack([filter_dv] * 3, axis=2)
+    sobel_y = np.stack([sobel_y] * 3, axis=2)
 
     img = img.astype('float32')
-    convolved = np.absolute(convolve(img, filter_du)) + np.absolute(convolve(img, filter_dv))
+    convolved = np.absolute(convolve(img, sobel_x)) + np.absolute(convolve(img, sobel_y))
 
     # We sum the energies in the red, green, and blue channels
     energy_map = convolved.sum(axis=2)/3

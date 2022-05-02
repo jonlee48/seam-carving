@@ -12,7 +12,7 @@ def crop(im_path, scale_c, scale_r):
     out_path = '{}_out.{}'.format(name, ext)
 
     im = cv2.imread(im_path)
-    #out = calc_energy(im)
+    im = calc_energy(im)
 
     if scale_c:
         im = resize_c(im,scale_c)
@@ -20,7 +20,7 @@ def crop(im_path, scale_c, scale_r):
         im = resize_r(im,scale_r)
 
     cv2.imwrite(out_path,im)
-    last = out_path
+    last_out = out_path
     print(out_path)
 
 
@@ -28,7 +28,6 @@ def crop(im_path, scale_c, scale_r):
 # start the pygame interface
 pygame.init()
 clock = pygame.time.Clock()
-
 
 # normal photo
 crop('imgs/capital.jpg', 0.6, 0)
